@@ -1,9 +1,20 @@
 // src/App.jsx
 
+import { useState } from "react";
+import StarshipList from "./components/StarshipList/StarshipList";
+import StarshipSearch from "./components/StarshipSearch/StarshipSearch";
+
 const App = () => {
 
+  const [starshipsData, setStarshipsData] = useState([]);
+  const [displayedStarships, setDisplayedStarships] = useState([]);
+
   return (
-    <h1>Hello world!</h1>
+    <>
+    <h1>Star Wars API</h1>
+    <StarshipSearch/>
+    <StarshipList/>
+    </>
   );
 }
 
