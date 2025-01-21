@@ -1,7 +1,7 @@
 const BASE_URL = `https://swapi.info/api/starships`;
 
-async function index() {
-  const url = `${BASE_URL}`;
+async function show(index) {
+  const url = `${BASE_URL}/${index}`;
   try {
     const response = await fetch(url);
     if (!response.ok) {
@@ -9,11 +9,11 @@ async function index() {
     }
 
     const json = await response.json();
-    console.log(json);
+    // console.log(json);
     return json;
   } catch (error) {
     console.error(error.message);
   }
 }
 
-export { index };
+export { show };
