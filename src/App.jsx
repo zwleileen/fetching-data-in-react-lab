@@ -4,15 +4,22 @@ import { useState } from "react";
 import StarshipList from "./components/StarshipList/StarshipList";
 import StarshipSearch from "./components/StarshipSearch/StarshipSearch";
 import * as starshipService from './services/starshipService';
+import { useEffect } from "react";
 
 const App = () => {
 
   const [starshipsData, setStarshipsData] = useState([]);
   const [displayedStarships, setDisplayedStarships] = useState([]);
 
-  const fetchData = async () => {
-    const data = await starshipService.show("2");
-    console.log('Data:', data)
+  useEffect(() => {
+    fetchData(2); }, []); //default to index 2 on load
+
+  const fetchData = async (starshipIndex) => {
+    const data = await starshipService.index(starshipIndex);
+    console.log('Data:', data);
+    if (data) {
+      setStarshipsData([data]); //Store the fetched data in state
+    }
   }
 
   return (

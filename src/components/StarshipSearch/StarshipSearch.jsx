@@ -1,13 +1,31 @@
 // src/App.jsx
+import * as starshipService from '../../services/starshipService';
+import { useState } from "react";
 
 const StarshipSearch = (props) => {
+
+    const [searchTerm, setSearchTerm] = useState("");
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        
+        const starshipIndex = await starshipService.findStarshipIndex(searchTerm);
+        if (starshipIndex) {
+            props.fetchData(starshipIndex);
+        } else {
+            console.log('Starship not found')
+        }
+        setSearchTerm("");
+    }
 
     return (
     <>  
     <h2>Search</h2>
-    <label htmlFor="starshipAPI">Search Term: </label>
-    <input type="text" id="starshipAPI" name="starshipAPI" value=""/>
-    <button onClick={props.fetchData}>Search</button>
+    <form onSubmit={handleSubmit}>
+        <label htmlFor="name">Search Term: </label>
+        <input type="text" id="name" name={searchTerm} value={searchTerm} onChange={(event) => setSearchTerm(event.target.value)} placeholder="Enter starship name"/>
+        <button onClick={props.fetchData}>Search</button>
+    </form>
     </>
     );
   }
