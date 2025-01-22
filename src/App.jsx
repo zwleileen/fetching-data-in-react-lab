@@ -10,6 +10,7 @@ const App = () => {
 
   const [starshipsData, setStarshipsData] = useState([]);
   const [displayedStarships, setDisplayedStarships] = useState([]);
+  const [lastSearch, setLastSearch] = useState("");
 
 
   useEffect(() => {
@@ -39,10 +40,16 @@ const App = () => {
     }
 }
 
+  const reset = () => {
+    setDisplayedStarships(starshipsData);
+    setLastSearch("");
+  }
+
   return (
     <>
     <h1>Star Wars API</h1>
-    <StarshipSearch fetchData={fetchData} starshipsData={starshipsData} setDisplayedStarships={setDisplayedStarships} handleSearch={handleSearch}/>
+    <StarshipSearch fetchData={fetchData} starshipsData={starshipsData} setDisplayedStarships={setDisplayedStarships} handleSearch={handleSearch} setLastSearch={setLastSearch} lastSearch={lastSearch}/>
+    {lastSearch ? <button onClick={reset}>Show all starships</button> : null}
     <StarshipList fetchData={fetchData} starshipsData={starshipsData} displayedStarships={displayedStarships}/>
     </>
   );
