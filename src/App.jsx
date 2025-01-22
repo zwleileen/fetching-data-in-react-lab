@@ -10,7 +10,6 @@ const App = () => {
 
   const [starshipsData, setStarshipsData] = useState([]);
   const [displayedStarships, setDisplayedStarships] = useState([]);
-  // const { starshipId } = useParams();
 
 
   useEffect(() => {
@@ -28,14 +27,23 @@ const App = () => {
     }))
     if (formattedData)
       setStarshipsData(formattedData); //Store the fetched data in state
+      setDisplayedStarships(formattedData);
   }
-  console.log('Data:', starshipsData);
+  // console.log('Data:', starshipsData);
+  const handleSearch = (searchTerm) => {
+    if (!searchTerm) {
+        setDisplayedStarships(starshipsData);
+    } else {
+        const searches = starshipsData.filter(ship => ship.name.toLowerCase().includes(searchTerm.toLowerCase()));
+        setDisplayedStarships(searches);
+    }
+}
 
   return (
     <>
     <h1>Star Wars API</h1>
-    <StarshipSearch fetchData={fetchData}/>
-    <StarshipList fetchData={fetchData} starshipsData={starshipsData}/>
+    <StarshipSearch fetchData={fetchData} starshipsData={starshipsData} setDisplayedStarships={setDisplayedStarships} handleSearch={handleSearch}/>
+    <StarshipList fetchData={fetchData} starshipsData={starshipsData} displayedStarships={displayedStarships}/>
     </>
   );
 }
