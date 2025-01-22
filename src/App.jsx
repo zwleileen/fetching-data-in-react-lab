@@ -15,8 +15,8 @@ const App = () => {
   useEffect(() => {
     fetchData(2); }, []); //default to index 2 on load
 
-  const fetchData = async (shipId) => {
-    const data = await starshipService.index(shipId);
+  const fetchData = async () => {
+    const data = await starshipService.index();
     const newStarshipsData = {
       name: data.name,
       starship_class: data.starship_class,

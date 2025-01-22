@@ -5,10 +5,11 @@ import { useState } from "react";
 const StarshipSearch = (props) => {
 
     const [searchTerm, setSearchTerm] = useState("");
+    const [loading, setLoading] = useState("")
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        
+        setLoading("loading...")
         const shipId = await starshipService.findStarshipIndex(searchTerm);
         if (shipId) {
             props.fetchData(shipId);
@@ -16,6 +17,7 @@ const StarshipSearch = (props) => {
             console.log('Starship not found')
         }
         setSearchTerm("");
+        setLoading("");
     }
 
     return (
@@ -26,6 +28,7 @@ const StarshipSearch = (props) => {
         <input type="text" id={props.shipId} name={searchTerm} value={searchTerm} onChange={(event) => setSearchTerm(event.target.value)} placeholder="Enter starship name"/>
         <button onClick={props.fetchData}>Search</button>
     </form>
+    <p>{loading}</p>
     </>
     );
   }
