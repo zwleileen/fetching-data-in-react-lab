@@ -4,22 +4,22 @@ import { useState } from "react";
 const StarshipSearch = (props) => {
 
     const [searchTerm, setSearchTerm] = useState("");
-    const [loading, setLoading] = useState("")
+    const [lastSearch, setLastSearch] = useState("");
 
     const handleSubmit = (event) => {
         event.preventDefault();
         props.handleSearch(searchTerm);
+        setLastSearch(searchTerm);
         setSearchTerm("");
-        setLoading("");
     }
 
-    
-
+    //Notes: any change to input will call handleSearch directly
     const handleChange = (event) => {
-        setSearchTerm(event.target.value)
+        const newSearchTerm = event.target.value;
+        setSearchTerm(newSearchTerm);
+        props.handleSearch(newSearchTerm);
     }
  
-    
     return (
     <>  
     <h2>Search</h2>
@@ -28,7 +28,7 @@ const StarshipSearch = (props) => {
         <input type="text" id="searchTerm" name="searchTerm" value={searchTerm} onChange={handleChange} placeholder="Enter starship name"/>
         <button type="submit">Search</button>
     </form>
-    <p>{loading}</p>
+    <p>{lastSearch ? `Last search: ${lastSearch}` : `Search for a starship by name.`}</p>
     </>
     );
   }
