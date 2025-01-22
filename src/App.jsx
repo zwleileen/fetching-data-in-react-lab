@@ -11,22 +11,29 @@ const App = () => {
   const [starshipsData, setStarshipsData] = useState([]);
   const [displayedStarships, setDisplayedStarships] = useState([]);
 
+
   useEffect(() => {
     fetchData(2); }, []); //default to index 2 on load
 
-  const fetchData = async (starshipIndex) => {
-    const data = await starshipService.index(starshipIndex);
-    console.log('Data:', data);
-    if (data) {
-      setStarshipsData([data]); //Store the fetched data in state
+  const fetchData = async (shipId) => {
+    const data = await starshipService.index(shipId);
+    const newStarshipsData = {
+      name: data.name,
+      starship_class: data.starship_class,
+      manufacturer: data.manufacturer,
+      model: data.model
+    }
+    if (newStarshipsData) {
+      setStarshipsData([newStarshipsData]); //Store the fetched data in state
     }
   }
+  console.log('Data:', starshipsData);
 
   return (
     <>
     <h1>Star Wars API</h1>
     <StarshipSearch fetchData={fetchData}/>
-    <StarshipList/>
+    <StarshipList fetchData={fetchData} starshipsData={starshipsData}/>
     </>
   );
 }

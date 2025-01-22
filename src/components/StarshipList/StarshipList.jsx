@@ -7,8 +7,11 @@ const StarshipList = (props) => {
     return (
     <>
     <h2>Starships</h2>
-    <p>Number of results:</p>
-    <StarshipCard/>
+    <ul>
+        {props.starshipsData.map((starship) => (
+            <li key={starship.name}><StarshipCard starship={starship}/></li>
+        ))}
+    </ul>
     </>
     );
   }

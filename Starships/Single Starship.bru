@@ -1,0 +1,15 @@
+meta {
+  name: Single Starship
+  type: http
+  seq: 3
+}
+
+get {
+  url: https://swapi.info/api/starships/:shipId
+  body: none
+  auth: none
+}
+
+params:path {
+  shipId: 2
+}

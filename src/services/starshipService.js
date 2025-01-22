@@ -1,7 +1,7 @@
 const BASE_URL = `https://swapi.info/api/starships`;
 
-async function index(starshipIndex) {
-  const url = `${BASE_URL}/${starshipIndex}`;
+async function index(shipId) {
+  const url = `${BASE_URL}/${shipId}`;
   try {
     const response = await fetch(url);
     if (!response.ok) {

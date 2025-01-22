@@ -9,9 +9,9 @@ const StarshipSearch = (props) => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         
-        const starshipIndex = await starshipService.findStarshipIndex(searchTerm);
-        if (starshipIndex) {
-            props.fetchData(starshipIndex);
+        const shipId = await starshipService.findStarshipIndex(searchTerm);
+        if (shipId) {
+            props.fetchData(shipId);
         } else {
             console.log('Starship not found')
         }
@@ -23,7 +23,7 @@ const StarshipSearch = (props) => {
     <h2>Search</h2>
     <form onSubmit={handleSubmit}>
         <label htmlFor="name">Search Term: </label>
-        <input type="text" id="name" name={searchTerm} value={searchTerm} onChange={(event) => setSearchTerm(event.target.value)} placeholder="Enter starship name"/>
+        <input type="text" id={props.shipId} name={searchTerm} value={searchTerm} onChange={(event) => setSearchTerm(event.target.value)} placeholder="Enter starship name"/>
         <button onClick={props.fetchData}>Search</button>
     </form>
     </>
