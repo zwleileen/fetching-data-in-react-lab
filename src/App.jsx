@@ -1,5 +1,5 @@
 // src/App.jsx
-
+import './App.css'
 import { useState } from "react";
 import StarshipList from "./components/StarshipList/StarshipList";
 import StarshipSearch from "./components/StarshipSearch/StarshipSearch";
@@ -10,22 +10,24 @@ const App = () => {
 
   const [starshipsData, setStarshipsData] = useState([]);
   const [displayedStarships, setDisplayedStarships] = useState([]);
+  // const { starshipId } = useParams();
 
 
   useEffect(() => {
-    fetchData(2); }, []); //default to index 2 on load
+    fetchData(); }, []); //load all data on launch
 
   const fetchData = async () => {
     const data = await starshipService.index();
-    const newStarshipsData = {
-      name: data.name,
-      starship_class: data.starship_class,
-      manufacturer: data.manufacturer,
-      model: data.model
-    }
-    if (newStarshipsData) {
-      setStarshipsData([newStarshipsData]); //Store the fetched data in state
-    }
+    const formattedData = data.map(ship => (
+    {
+      id: ship.url.split('/').slice(-1)[0],
+      name: ship.name,
+      starship_class: ship.starship_class,
+      manufacturer: ship.manufacturer,
+      model: ship.model
+    }))
+    if (formattedData)
+      setStarshipsData(formattedData); //Store the fetched data in state
   }
   console.log('Data:', starshipsData);
 
